@@ -1,0 +1,28 @@
+Login:  freelamer  
+Password: 123123456  
+shared_secret:  gHbIrkIMj0WhQ+VECzmJMYXvNVg=  
+identity_secret: w8/fYG+pKfWhqOvXnhZCQEbEXig=  
+SteamID: 76561198075930978  
+Offer:  https://steamcommunity.com/tradeoffer/new/?partner=115665250&token=4nE2w1ki
+=================================================
+Login:  blackhorse88  
+Password: Blackhorse88  
+shared_secret:  ELprd40k0Yr3pZr77skXyHr9Spc=  
+identity_secret: N07oU5khKJElG/h+Mm8+ibZhiA0=  
+SteamID: 76561198059771342  
+Offer:  https://steamcommunity.com/tradeoffer/new/?partner=99505614&token=cbAc1-iJ
+=================================================
+Login:  ybsb0y  
+Password: ybsb0y  
+shared_secret:  vmO+0vI1DBIa2O6A18426vuTxx8=  
+identity_secret: VWlhGWmUxJBYxaJwqAuFFMzQ7Lo=  
+SteamID: __steamid  
+Offer:  __trade_offer
+=================================================
+Login:  piggos1  
+Password: stehelceves239  
+shared_secret:  niYk9RxRunnz5f7XBQPQonrKQlQ=  
+identity_secret: If1lkCbfYYe8wRGNUCsXWKxngxA=  
+SteamID: __steamid  
+Offer:  __trade_offer
+=================================================

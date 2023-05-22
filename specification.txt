@@ -1,0 +1,24 @@
+-----------------EN-------------------
+All work happens on the clipboard
+
+Procedure
+1. You copy the data from src.txt to the clipboard (Ctrl+C).
+2. You start the software.
+- There are several accounts in the src.txt file, separated by ====. The software should parse both 1 account and several.
+- Already copied data in the clipboard is read by the software.
+- Parse the values of the Login,Password,shared_secret,identity_secret,SteamID,Offer fields using a regular expression.
+- You write the received values to the clipboard so that it looks like out.txt.
+3. You check result (Ctrl+V).
+
+-----------------RU-------------------
+
+Вся работа происходит в буфере обмена
+
+Порядок действий
+1. Данные из src.txt копируешь в буфер обмена (Ctrl+C).
+2. Запускаешь ПО.
+- В файле src.txt несколько аккаунтов, разделённые ====. Софт должен парсить как 1 акк, так и несколько.
+- Уже скопированные данные в буфере обмена читаешь софтом.
+- С помощью регулярного выражения парсишь значения полей Login,Password,shared_secret,identity_secret,SteamID,Offer.
+- Полученные значения записываешь в буфер обмена, чтобы он выглядел как out.txt.
+3. Проверяешь результат (Ctrl+V).
