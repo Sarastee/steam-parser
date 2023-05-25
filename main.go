@@ -1,17 +1,10 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"golang.design/x/clipboard"
-	"log"
 	"regexp"
-	"strings"
 )
-
-type AccountNodes struct {
-	AccountNodes []Account `json:"accountNodes"`
-}
 
 type Account struct {
 	Login          string `json:"login"`
@@ -25,57 +18,32 @@ type Account struct {
 func main() {
 	input := readFromBuffer()
 
-	lines, err := StringToLines(input)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	sliceSize := len(lines) / 7
-
-	data := AccountNodes{}
-	counter := 0
-	i := 0
-	data.AccountNodes = make([]Account, sliceSize)
+	blank := regexp.MustCompile("Login:\\s*(\\w+)\\s*\\nPassword:\\s*(\\w+)\\s*shared_secret:\\s*(.+=)\\s*identity_secret:\\s*(.+=)\\s*SteamID:\\s*(\\w+)\\s*\\nOffer:\\s*(.+\\S)")
+	res := blank.FindAllStringSubmatch(input, -1)
 
 	var buf []byte
-	for _, line := range lines {
+	accounts := make([]Account, 0, 1)
 
-		line = Parse(line, `(?m)[\w]+[:][\s]+`, "")
-		line = Parse(line, `[\s]`, "")
+	for i := 0; i < len(res); i++ {
+		accounts = append(accounts, Account{
+			Login:          res[i][1],
+			Password:       res[i][2],
+			SharedSecret:   res[i][3],
+			IdentitySecret: res[i][4],
+			SteamID:        res[i][5],
+			Offer:          res[i][6],
+		})
 
-		switch counter {
-		case 0:
-			data.AccountNodes[i].Login = line
-			counter++
-		case 1:
-			data.AccountNodes[i].Password = line
-			counter++
-		case 2:
-			data.AccountNodes[i].SharedSecret = line
-			counter++
-		case 3:
-			data.AccountNodes[i].IdentitySecret = line
-			counter++
-		case 4:
-			data.AccountNodes[i].SteamID = line
-			counter++
-		case 5:
-			data.AccountNodes[i].Offer = line
-			counter++
-		default:
-			counter = 0
-			temp := fmt.Sprintf("%s:%s:::%s:::%s:::::%s:::::%s\n",
-				data.AccountNodes[i].Login,
-				data.AccountNodes[i].Password,
-				data.AccountNodes[i].SharedSecret,
-				data.AccountNodes[i].IdentitySecret,
-				data.AccountNodes[i].SteamID,
-				data.AccountNodes[i].Offer)
+		temp := fmt.Sprintf("%s:%s:::%s:::%s:::::%s:::::%s\n",
+			accounts[i].Login,
+			accounts[i].Password,
+			accounts[i].SharedSecret,
+			accounts[i].IdentitySecret,
+			accounts[i].SteamID,
+			accounts[i].Offer)
+		buf = append(buf, temp...)
 
-			buf = append(buf, temp...)
-			writeInBuffer(buf)
-			i++
-		}
+		writeInBuffer(buf)
 	}
 }
 
@@ -90,18 +58,4 @@ func readFromBuffer() string {
 
 func writeInBuffer(data []byte) {
 	clipboard.Write(clipboard.FmtText, data)
-}
-func StringToLines(s string) (lines []string, err error) {
-	scanner := bufio.NewScanner(strings.NewReader(s))
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	err = scanner.Err()
-	return
-}
-
-func Parse(data string, pattern string, replacement string) string {
-	deleteInfo := regexp.MustCompile(pattern)
-	exitData := deleteInfo.ReplaceAllString(data, replacement)
-	return exitData
 }
